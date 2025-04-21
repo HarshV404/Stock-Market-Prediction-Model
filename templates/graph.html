@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ ticker }} Historical Graph{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='graph.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>{{ ticker }} Historical Stock Prices</h1>
+    <div id="chart">{{ graph_html | safe }}</div>
+</div>
+{% endblock %}

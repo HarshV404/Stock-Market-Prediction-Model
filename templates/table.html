@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ ticker }} Historical Table{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="normal-container">
+    <div class="chart-container">
+        <div class="table-container">
+            <h1>{{ ticker }} Historical Data</h1>
+
+            <!-- Search Filter -->
+            <div class="search-filter">
+                <label for="date-search">Search by Date:</label>
+                <input type="text" id="date-search" placeholder="Enter date (YYYY-MM-DD)">
+                <button type="submit" class="btn btn-primary" onclick="filterTable()">Search</button>
+            </div>
+
+            <!-- Historical Data Table -->
+            <div class="table-wrapper">
+                {{ historical_table | safe }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Stock Market Chatbot</h2>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Ask me about stocks, prices, and predictions
+        </div>
+        <div class="card-body" style="height: 300px; overflow-y: auto;" id="chat-window">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="card-footer">
+            <div class="input-group">
+                <input type="text" class="form-control" id="user-message" placeholder="Ask about a stock (e.g., What's AAPL's price?)">
+                <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+                <button class="btn btn-primary" id="send-button">Send</button>
+            </div>
+            <small class="text-muted">Try: "Predict TSLA price", "Show MSFT history", "What's AAPL's current price?"</small>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatWindow = document.getElementById('chat-window');
+    const userInput = document.getElementById('user-message');
+    const sendButton = document.getElementById('send-button');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    
+    function addMessage(sender, message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `mb-2 ${sender === 'user' ? 'text-end' : 'text-start'}`;
+        messageDiv.innerHTML = `
+            <div class="d-inline-block p-2 rounded ${sender === 'user' ? 'bg-primary text-white' : 'bg-light'}">
+                ${message}
+            </div>
+        `;
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+    
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (message) {
+            addMessage('user', message);
+            userInput.value = '';
+            
+            fetch('/get-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    message: message,
+                    csrf_token: csrfToken
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                addMessage('bot', data.response);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('bot', "Sorry, I'm having trouble responding. Please try again.");
+            });
+        }
+    }
+    
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+/* Add these to your table.css */
+.normal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: auto;
+    overflow: hidden;
+}
+
+.table-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 60vh; /* Adjust this value as needed */
+    margin-top: 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    color: #333;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+/* Keep your existing styles and add these adjustments */
+.search-filter {
+    margin-bottom: 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-filter input {
+    flex-grow: 1;
+    max-width: 200px;
+}
+
+#no-results {
+    color: #dc3545;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}

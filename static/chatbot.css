@@ -1,0 +1,124 @@
+/* chatbot.css - Styling for the chatbot interface */
+
+/* Base container styling - matches the form styling from index.css */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Card styling - consistent with the prediction theme */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #d9534f; /* Matching btn-custom-red color */
+    color: white;
+    font-weight: bold;
+    padding: 15px 20px;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 1px solid #eee;
+    padding: 15px 20px;
+}
+
+/* Chat message bubbles */
+.mb-2 {
+    margin-bottom: 1rem;
+}
+
+.text-end .rounded {
+    background-color: #d9534f; /* Red for user messages */
+    color: white;
+    max-width: 70%;
+    margin-left: auto;
+}
+
+.text-start .rounded {
+    background-color: #f1f1f1; /* Light gray for bot messages */
+    color: #333;
+    max-width: 70%;
+    margin-right: auto;
+}
+
+/* Input and button styling - matching index.css */
+.input-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 2px solid #d9534f; /* Red underline like index.css */
+    outline: none;
+    background: none;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-bottom-color: #c9302c; /* Darker red on focus */
+}
+
+.btn-primary {
+    background-color: #d9534f; /* Matching red theme */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
+/* Help text styling */
+.text-muted {
+    color: #6c757d;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Scrollbar styling for chat window */
+#chat-window::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-window::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#chat-window::-webkit-scrollbar-thumb {
+    background-color: #d9534f; /* Matching red theme */
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card-header {
+        padding: 10px 15px;
+    }
+    
+    .text-end .rounded,
+    .text-start .rounded {
+        max-width: 85%;
+    }
+}
